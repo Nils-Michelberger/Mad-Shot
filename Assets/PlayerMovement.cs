@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,40 +32,9 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         
-        //isNotWalking
-        if (x == 0f && z == 0f)
-        {
-            if (isGrounded)
-            {
-                animator.SetBool("isWalking", false);
-                animator.SetBool("isJumping", false);
-                animator.SetBool("isGrounded", true);
-            }
-            else
-            {
-                animator.SetBool("isWalking", false);
-                animator.SetBool("isJumping", true);
-                animator.SetBool("isGrounded", false);
-            }
-
-        }
-        //isWalking
-        else
-        {
-            if (isGrounded)
-            {
-                animator.SetBool("isWalking", true);
-                animator.SetBool("isJumping", false);
-                animator.SetBool("isGrounded", true);
-            }
-            else
-            {
-                animator.SetBool("isWalking", false);
-                animator.SetBool("isJumping", true);
-                animator.SetBool("isGrounded", false);
-            }
-
-        }
+        animator.SetFloat("Vertical", x);
+        animator.SetFloat("Horizontal", z);
+        animator.SetFloat("Jump", controller.velocity.y);
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 

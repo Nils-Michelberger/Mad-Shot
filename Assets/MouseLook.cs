@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class MouseLook : MonoBehaviour
 {
@@ -8,6 +11,7 @@ public class MouseLook : MonoBehaviour
     public Transform playerBody;
     public CharacterController controller;
     private float xRotation;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -26,5 +30,7 @@ public class MouseLook : MonoBehaviour
         
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+        
+        animator.SetFloat("Aim", xRotation);
     }
 }
