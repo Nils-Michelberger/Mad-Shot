@@ -66,6 +66,13 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             gravityVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            
+            //Exit crouch when jumping
+            if (animator.GetBool("Crouching"))
+            {
+                animator.SetBool("Crouching", false);
+                speed *= 2;
+            }
         }
 
         gravityVelocity.y += gravity * Time.deltaTime;
