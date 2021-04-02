@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 482126909}
   - component: {fileID: 482126908}
   - component: {fileID: 482126907}
+  - component: {fileID: 482126910}
   m_Layer: 0
   m_Name: FirstPersonPlayer Mixamo
   m_TagString: Untagged
@@ -267,6 +268,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &482126910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482126906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823df480c0395b44585bebb7338829ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 865957640}
+  camera: {fileID: 548372788}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2147483647
 --- !u!1 &548372784
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +368,7 @@ Camera:
     height: 1
   near clip plane: 0.25
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -612,6 +630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d5ce3ec255f854a81be92de1dffdb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Space Gun
+  damage: 10
+  range: 200
 --- !u!1 &1013711539
 GameObject:
   m_ObjectHideFlags: 0
