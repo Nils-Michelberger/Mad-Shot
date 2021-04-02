@@ -28,6 +28,18 @@ public class Launcher : MonoBehaviourPunCallbacks
     #endregion
 
 
+    #region Public Fields
+
+    [Tooltip("The Ui Panel to let the user enter name, connect and play")]
+    [SerializeField]
+    private GameObject controlPanel;
+    [Tooltip("The UI Label to inform the user that the connection is in progress")]
+    [SerializeField]
+    private GameObject progressLabel;
+
+    #endregion
+
+
     #region MonoBehaviour CallBacks
 
     /// <summary>
@@ -46,7 +58,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     /// </summary>
     void Start()
     {
-        
+        progressLabel.SetActive(false);
+        controlPanel.SetActive(true);
     }
 
     #endregion
@@ -61,6 +74,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     /// </summary>
     public void Connect()
     {
+        progressLabel.SetActive(true);
+        controlPanel.SetActive(false);
+        
         // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
         if (PhotonNetwork.IsConnected)
         {
@@ -90,6 +106,9 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
+        progressLabel.SetActive(false);
+        controlPanel.SetActive(true);
+
         Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}",
             cause);
     }
