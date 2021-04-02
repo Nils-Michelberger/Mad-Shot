@@ -37,7 +37,23 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Jump", controller.velocity.y);
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        animator.SetBool("Grounded", isGrounded);
 
+        //Crouching toggle
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (animator.GetBool("Crouching"))
+            {
+                animator.SetBool("Crouching", false);
+                speed *= 2;
+            }
+            else
+            {
+                animator.SetBool("Crouching", true);
+                speed /= 2;
+            }
+        }
+        
         if (isGrounded && gravityVelocity.y < 0)
         {
             gravityVelocity.y = -2f;
