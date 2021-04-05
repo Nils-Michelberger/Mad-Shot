@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -13,10 +15,18 @@ public class MouseLook : MonoBehaviour
     private float xRotation;
     public Animator animator;
     public float dampTime;
+    public float turnSpeed = 15f;
 
+    public bool fpsView;
     public float speed;
     public Transform standingPosition;
     public Transform crouchingPosition;
+
+    public Cinemachine.AxisState xAxis;
+    public Cinemachine.AxisState yAxis;
+    public Transform cameraFollow;
+
+    public Camera mainCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -27,27 +37,30 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        xAxis.Update(Time.deltaTime);
+        yAxis.Update(Time.deltaTime);
+
+        cameraFollow.eulerAngles = new Vector3(yAxis.Value, xAxis.Value);
+
+        float yCamera = mainCamera.transform.rotation.eulerAngles.y;
+        controller.transform.rotation = Quaternion.Slerp(controller.transform.rotation, quaternion.Euler(0, yCamera, 0), turnSpeed * Time.deltaTime);
+
+        if (fpsView)
+        {
+            if (animator.GetBool("Crouching"))
+            {
+                float step = speed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, crouchingPosition.position, step);
+            }
+            else
+            {
+                float step = speed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, standingPosition.position, step);
+            }
+        }
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -75f, 75f);
-        
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
-
-        if (animator.GetBool("Crouching"))
-        {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, crouchingPosition.position, step);
-        }
-        else
-        {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, standingPosition.position, step);
-        }
-
-        animator.SetFloat("Aim", xRotation);
+        animator.SetFloat("Aim", yAxis.Value);
         animator.SetFloat("Turning", mouseX, dampTime, Time.deltaTime);
     }
 }
