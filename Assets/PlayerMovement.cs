@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 gravityVelocity;
     
     public Animator animator;
+    public float dampTime = 0.15f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -32,9 +33,9 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         
-        animator.SetFloat("Vertical", x);
-        animator.SetFloat("Horizontal", z);
-        animator.SetFloat("Jump", controller.velocity.y);
+        animator.SetFloat("Vertical", x, dampTime, Time.deltaTime);
+        animator.SetFloat("Horizontal", z, dampTime, Time.deltaTime);
+        animator.SetFloat("Jump", controller.velocity.y, dampTime, Time.deltaTime);
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         animator.SetBool("Grounded", isGrounded);

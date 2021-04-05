@@ -228,6 +228,7 @@ MonoBehaviour:
   gravity: -19.62
   jumpHeight: 2
   animator: {fileID: 1201867631}
+  dampTime: 0.15
   groundCheck: {fileID: 1096202331}
   groundDistance: 0.4
   groundMask:
