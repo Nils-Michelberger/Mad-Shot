@@ -230,7 +230,7 @@ MonoBehaviour:
   animator: {fileID: 1201867631}
   dampTime: 0.15
   groundCheck: {fileID: 1096202331}
-  groundDistance: 0.4
+  groundDistance: 0.1
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 865957640}
-  camera: {fileID: 548372788}
+  cam: {fileID: 548372788}
   mask:
     serializedVersion: 2
     m_Bits: 2147483647
@@ -336,6 +336,7 @@ MonoBehaviour:
   playerBody: {fileID: 482126909}
   controller: {fileID: 482126908}
   animator: {fileID: 1201867631}
+  dampTime: 0.6
 --- !u!81 &548372787
 AudioListener:
   m_ObjectHideFlags: 0
@@ -631,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d5ce3ec255f854a81be92de1dffdb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Space Gun
+  nickname: Space Gun
   damage: 10
   range: 200
 --- !u!1 &1013711539

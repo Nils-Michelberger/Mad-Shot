@@ -12,6 +12,7 @@ public class MouseLook : MonoBehaviour
     public CharacterController controller;
     private float xRotation;
     public Animator animator;
+    public float dampTime;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,8 @@ public class MouseLook : MonoBehaviour
         
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
-        
+
         animator.SetFloat("Aim", xRotation);
+        animator.SetFloat("Turning", mouseX, dampTime, Time.deltaTime);
     }
 }
