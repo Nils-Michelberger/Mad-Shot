@@ -14,6 +14,10 @@ public class MouseLook : MonoBehaviour
     public Animator animator;
     public float dampTime;
 
+    public float speed;
+    public Transform standingPosition;
+    public Transform crouchingPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +35,17 @@ public class MouseLook : MonoBehaviour
         
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+
+        if (animator.GetBool("Crouching"))
+        {
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, crouchingPosition.position, step);
+        }
+        else
+        {
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, standingPosition.position, step);
+        }
 
         animator.SetFloat("Aim", xRotation);
         animator.SetFloat("Turning", mouseX, dampTime, Time.deltaTime);

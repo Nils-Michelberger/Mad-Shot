@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class PlayerShoot : MonoBehaviour
+public class PlayerShoot : MonoBehaviourPunCallbacks
 {
     public Weapon weapon;
     public Camera cam;
