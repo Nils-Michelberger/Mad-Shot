@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     public Weapon weapon;
-    public Camera camera;
+    public Camera cam;
     public LayerMask mask;
     
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class PlayerShoot : MonoBehaviour
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, weapon.range, mask))
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, weapon.range, mask))
             {
                 Debug.Log(hit.collider);
             }

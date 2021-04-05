@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Weapon : MonoBehaviour
 {
-    public string name = "Space Gun";
+    public string nickname = "Space Gun";
     public float damage = 10f;
     public float range = 200f;
     
