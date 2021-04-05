@@ -11,6 +11,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
     public ParticleSystem muzzleFlashFPS;
     public GameObject impactEffect;
     public AudioSource fireSound;
+    public Animation fireAnimationFPS;
 
     public float fireRate = 15f;
     public float range = 200f;
@@ -34,6 +35,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
             muzzleFlash.Play();
             muzzleFlashFPS.Play();
             fireSound.Play();
+            fireAnimationFPS.Play();
             
             RaycastHit hit;
 
