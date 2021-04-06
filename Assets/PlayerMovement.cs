@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     
     public float speed = 12f;
+    public float camSpeed = 10f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     
@@ -21,7 +22,10 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     private bool isGrounded;
 
-    public Camera camera;
+    public Camera cam;
+    public Transform followObject;
+    public Transform standingReference;
+    public Transform crouchingReference;
 
     // Start is called before the first frame update
     void Start()
@@ -45,13 +49,20 @@ public class PlayerMovement : MonoBehaviour
         //Crouching toggle
         if (Input.GetKeyDown(KeyCode.C))
         {
+            float step = speed * Time.deltaTime;
             if (animator.GetBool("Crouching"))
             {
+                // followObject.transform.position = 
+                //     Vector3.MoveTowards(followObject.transform.position, standingReference.position, step);
+                followObject.transform.position = standingReference.position;
                 animator.SetBool("Crouching", false);
                 speed *= 2;
             }
             else
             {
+                // followObject.transform.position = 
+                //     Vector3.MoveTowards(followObject.transform.position, crouchingReference.position, step);
+                followObject.transform.position = crouchingReference.position;
                 animator.SetBool("Crouching", true);
                 speed /= 2;
             }
@@ -62,8 +73,8 @@ public class PlayerMovement : MonoBehaviour
             gravityVelocity.y = -2f;
         }
 
-        Vector3 forward = camera.transform.forward;
-        Vector3 right = camera.transform.right;
+        Vector3 forward = cam.transform.forward;
+        Vector3 right = cam.transform.right;
 
         forward.y = 0;
         right.y = 0;
