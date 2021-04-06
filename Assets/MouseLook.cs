@@ -42,9 +42,12 @@ public class MouseLook : MonoBehaviour
 
         cameraFollow.eulerAngles = new Vector3(yAxis.Value, xAxis.Value);
 
-        float yCamera = mainCamera.transform.rotation.eulerAngles.y;
-        controller.transform.rotation = Quaternion.Slerp(controller.transform.rotation, quaternion.Euler(0, yCamera, 0), turnSpeed * Time.deltaTime);
-
+        Vector3 cameraForward = mainCamera.transform.forward;
+        cameraForward.y = 0;
+        playerBody.transform.forward = cameraForward;
+        //playerBody.transform.rotation = Quaternion.Slerp(playerBody.transform.rotation, quaternion.Euler(0, yCamera, 0), turnSpeed * Time.deltaTime);
+        //playerBody.transform.rotation = quaternion.LookRotation(new Vector3(playerBody.transform.rotation.x, yCamera, playerBody.transform.rotation.z));
+        
         if (fpsView)
         {
             if (animator.GetBool("Crouching"))

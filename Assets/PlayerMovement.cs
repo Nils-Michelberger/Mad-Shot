@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     private bool isGrounded;
 
+    public Camera camera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,9 +62,16 @@ public class PlayerMovement : MonoBehaviour
             gravityVelocity.y = -2f;
         }
 
-        Vector3 move = transform.right * x + transform.forward * z;
+        Vector3 forward = camera.transform.forward;
+        Vector3 right = camera.transform.right;
 
-        controller.Move(move * speed * Time.deltaTime);
+        forward.y = 0;
+        right.y = 0;
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 desiredMoveDirection = forward * z + right * x;
+        controller.Move(desiredMoveDirection * speed * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
