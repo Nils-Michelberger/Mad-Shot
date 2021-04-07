@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Cinemachine;
+using Photon.Pun;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
-public class MouseLook : MonoBehaviour
+public class MouseLook : MonoBehaviourPunCallbacks
 {
     public float mouseSensitivity = 100f;
     public Transform playerBody;
@@ -26,17 +28,29 @@ public class MouseLook : MonoBehaviour
     public Cinemachine.AxisState yAxis;
     public Transform cameraFollow;
 
-    public Camera mainCamera;
+    private Camera mainCamera;
 
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        if(photonView.IsMine)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            mainCamera = Camera.main;
+            var vcam = GameObject.FindWithTag("MainVCam").GetComponent<CinemachineVirtualCamera>();
+            vcam.LookAt = cameraFollow;
+            vcam.Follow = cameraFollow;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+        
         xAxis.Update(Time.deltaTime);
         yAxis.Update(Time.deltaTime);
 

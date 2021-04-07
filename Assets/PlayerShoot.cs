@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerShoot : MonoBehaviourPunCallbacks
+public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
 {
-    public Camera cam;
+    private Camera cam;
     public LayerMask mask;
     public ParticleSystem muzzleFlash;
     public ParticleSystem muzzleFlashFPS;
@@ -18,17 +18,27 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
     public float damage = 10f;
 
     private float nextTimeToFire = 0f;
+    private bool isFiring;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (photonView.IsMine)
+        {
+            cam = Camera.main;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+        if (photonView.IsMine)
+        {
+            isFiring = Input.GetButton("Fire1") && Time.time >= nextTimeToFire;
+        }
+
+        //TODO: You only see other players shoot sometimes... (latency issue?)
+        if (isFiring)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             
@@ -51,6 +61,20 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
 
                 Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             }
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // We own this player: send the others our data
+            stream.SendNext(isFiring);
+        }
+        else
+        {
+            // Network player, receive data
+            isFiring = (bool)stream.ReceiveNext();
         }
     }
 }

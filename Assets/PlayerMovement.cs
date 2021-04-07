@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     public CharacterController controller;
     
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     private bool isGrounded;
 
-    public Camera cam;
+    private Camera cam;
     public Transform followObject;
     public Transform standingReference;
     public Transform crouchingReference;
@@ -30,12 +31,20 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (photonView.IsMine)
+        {
+            cam = Camera.main;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+        
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         
