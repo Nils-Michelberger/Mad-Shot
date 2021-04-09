@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -20,10 +21,10 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
     private bool isFiring;
 
     public float health = 50f;
-    
+
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,13 +41,13 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
         {
             isFiring = Input.GetButton("Fire1") && Time.time >= nextTimeToFire;
         }
-        
+
         if (isFiring)
         {
             photonView.RPC("Shoot", RpcTarget.All);
         }
     }
-    
+
     private void Awake()
     {
         // #Important
@@ -55,6 +56,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
         {
             LocalPlayerInstance = gameObject;
         }
+
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(gameObject);
@@ -64,20 +66,45 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
     void Shoot()
     {
         nextTimeToFire = Time.time + 1f / fireRate;
-            
+
         muzzleFlash.Play();
         muzzleFlashFPS.Play();
         fireSound.Play();
         fireAnimationFPS.Play();
-            
-        RaycastHit hit;
 
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, mask))
+        //Increase size if there are problems with hitting players
+        RaycastHit[] hits = new RaycastHit[10];
+
+        if (Physics.RaycastNonAlloc(cam.transform.position, cam.transform.forward, hits, range, mask) >= 1)
         {
-            Debug.Log(hit.collider);
+            Array.Sort(hits, delegate(RaycastHit hit1, RaycastHit hit2)
+            {
+                if (hit1.transform == null)
+                {
+                    return 1;
+                }
+                if (hit2.transform == null)
+                {
+                    return -1;
+                }
+                return hit1.distance.CompareTo(hit2.distance);
+            });
+
+            RaycastHit hit;
+
+            PhotonView hitPhotonView = hits[0].transform.GetComponent<PhotonView>();
+            if (hits[0].collider.CompareTag("Player") && hitPhotonView != null && hitPhotonView.IsMine)
+            {
+                hit = hits[1];
+                Debug.Log("Player hit himself. Taking second RaycastHit");
+            }
+            else
+            {
+                hit = hits[0];
+            }
 
             PhotonView target = hit.transform.GetComponent<PhotonView>();
-            if (target != null)
+            if (target != null && !target.IsMine)
             {
                 target.RPC("TakeDamage", RpcTarget.All);
             }
@@ -95,14 +122,16 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
 
     private IEnumerator InstantiateBloodEffect(RaycastHit hit)
     {
-        GameObject effect = PhotonNetwork.Instantiate("BulletImpactFleshSmallEffect", hit.point, Quaternion.LookRotation(hit.normal));
+        GameObject effect = PhotonNetwork.Instantiate("BulletImpactFleshSmallEffect", hit.point,
+            Quaternion.LookRotation(hit.normal));
         yield return new WaitForSeconds(2);
         PhotonNetwork.Destroy(effect);
     }
-    
+
     private IEnumerator InstantiateMetalEffect(RaycastHit hit)
     {
-        GameObject effect = PhotonNetwork.Instantiate("BulletImpactMetalEffect", hit.point, Quaternion.LookRotation(hit.normal));
+        GameObject effect =
+            PhotonNetwork.Instantiate("BulletImpactMetalEffect", hit.point, Quaternion.LookRotation(hit.normal));
         yield return new WaitForSeconds(2);
         PhotonNetwork.Destroy(effect);
     }
@@ -111,7 +140,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
     void TakeDamage()
     {
         health -= damage;
-        
+
         if (photonView.IsMine)
         {
             if (health <= 0f)
