@@ -120,8 +120,11 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
+        if (progressLabel != null && controlPanel != null)
+        {
+            progressLabel.SetActive(false);
+            controlPanel.SetActive(true);
+        }
 
         isConnecting = false;
 
@@ -145,12 +148,12 @@ public class Launcher : MonoBehaviourPunCallbacks
         // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            Debug.Log("We load the 'Room for 1' ");
+            Debug.Log("We load 'Room 1' ");
 
 
             // #Critical
             // Load the Room Level.
-            PhotonNetwork.LoadLevel("Room for 1");
+            PhotonNetwork.LoadLevel("Room 1");
         }
     }
 
