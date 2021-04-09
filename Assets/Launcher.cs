@@ -98,6 +98,11 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     #endregion
 
 
