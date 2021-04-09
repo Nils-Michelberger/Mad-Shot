@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     public CharacterController controller;
     
-    public float speed = 12f;
+    public float speed = 2.5f;
     public float camSpeed = 10f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
@@ -58,14 +58,14 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         //Crouching toggle
         if (Input.GetKeyDown(KeyCode.C))
         {
-            float step = speed * Time.deltaTime;
+            //float step = speed * Time.deltaTime;
             if (animator.GetBool("Crouching"))
             {
                 // followObject.transform.position = 
                 //     Vector3.MoveTowards(followObject.transform.position, standingReference.position, step);
                 followObject.transform.position = standingReference.position;
                 animator.SetBool("Crouching", false);
-                speed *= 2;
+                speed = 2.5f;
             }
             else
             {
@@ -73,10 +73,31 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
                 //     Vector3.MoveTowards(followObject.transform.position, crouchingReference.position, step);
                 followObject.transform.position = crouchingReference.position;
                 animator.SetBool("Crouching", true);
-                speed /= 2;
+                speed = 1.66f;
             }
         }
         
+        //Sprinting toggle
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            //Disable running when walking backwards
+            if (z < -0.1f)
+            {
+                animator.SetBool("Running", false);
+                speed = 2.5f;
+            }
+            else
+            {
+                animator.SetBool("Running", true);
+                speed = 5;
+            }
+        }
+        else
+        {
+            animator.SetBool("Running", false);
+            speed = 2.5f; 
+        }
+
         if (isGrounded && gravityVelocity.y < 0)
         {
             gravityVelocity.y = -2f;
@@ -91,7 +112,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         right.Normalize();
 
         Vector3 desiredMoveDirection = forward * z + right * x;
-        controller.Move(desiredMoveDirection * speed * Time.deltaTime);
+        var moveDirection = desiredMoveDirection * speed * Time.deltaTime;
+        controller.Move(moveDirection);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {

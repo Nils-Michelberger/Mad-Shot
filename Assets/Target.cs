@@ -22,7 +22,7 @@ public class Target : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (health <= 0f)
             {
-                GameManager.Instance.LeaveRoom();
+                GameManager.instance.LeaveRoom();
             }
         }
     }
