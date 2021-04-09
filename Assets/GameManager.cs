@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         instance = this;
 
-        if (Target.LocalPlayerInstance == null)
+        if (PlayerShoot.LocalPlayerInstance == null)
         {
             Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
             // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
