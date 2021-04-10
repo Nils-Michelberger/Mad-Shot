@@ -110,7 +110,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
             if (Input.GetButtonDown("Fire1"))
             {
                 //TODO: Add if-statement to check if we can build
-                PhotonNetwork.Instantiate("FloorBuild", floorBuild.position, floorBuild.rotation);
+                photonView.RPC("InstantiateFloor", RpcTarget.MasterClient, floorBuild.position, floorBuild.rotation);
             }
         }
         else
@@ -118,7 +118,9 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
             floorBuildMeshRenderer.enabled = false;
         }
     }
-    
+
+
+
     private void BuildWall(RaycastHit[] hits)
     {
         if (Physics.RaycastNonAlloc(cam.transform.position, cam.transform.forward, hits, range) >= 1)
@@ -139,7 +141,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
             if (Input.GetButtonDown("Fire1"))
             {
                 //TODO: Add if-statement to check if we can build
-                PhotonNetwork.Instantiate("WallBuild", wallBuild.position, wallBuild.rotation);
+                photonView.RPC("InstantiateWall", RpcTarget.MasterClient, wallBuild.position, wallBuild.rotation);
             }
         }
         else
@@ -168,7 +170,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
             if (Input.GetButtonDown("Fire1"))
             {
                 //TODO: Add if-statement to check if we can build
-                PhotonNetwork.Instantiate("StairBuild", stairBuild.position, stairBuild.rotation);
+                photonView.RPC("InstantiateStair", RpcTarget.MasterClient, stairBuild.position, stairBuild.rotation);
                 
             }
         }
@@ -176,5 +178,23 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
         {
             stairBuildMeshRenderer.enabled = false;
         }
+    }
+    
+    [PunRPC]
+    private void InstantiateFloor(Vector3 position, Quaternion rotation)
+    {
+        PhotonNetwork.InstantiateRoomObject("FloorBuild", position, rotation);
+    }
+    
+    [PunRPC]
+    private void InstantiateWall(Vector3 position, Quaternion rotation)
+    {
+        PhotonNetwork.InstantiateRoomObject("WallBuild", position, rotation);
+    }
+    
+    [PunRPC]
+    private void InstantiateStair(Vector3 position, Quaternion rotation)
+    {
+        PhotonNetwork.InstantiateRoomObject("StairBuild", position, rotation);
     }
 }
