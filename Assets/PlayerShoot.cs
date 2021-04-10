@@ -19,6 +19,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
 
     private float nextTimeToFire;
     private bool isFiring;
+    private PlayerBuild playerBuild;
 
     public float health = 50f;
 
@@ -32,6 +33,8 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
         {
             cam = Camera.main;
         }
+
+        playerBuild = GetComponent<PlayerBuild>();
     }
 
     // Update is called once per frame
@@ -39,7 +42,10 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine)
         {
-            isFiring = Input.GetButton("Fire1") && Time.time >= nextTimeToFire;
+            if (!(playerBuild.buildMode > 0))
+            {
+                isFiring = Input.GetButton("Fire1") && Time.time >= nextTimeToFire;
+            }
         }
 
         if (isFiring)
@@ -77,31 +83,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
 
         if (Physics.RaycastNonAlloc(cam.transform.position, cam.transform.forward, hits, range, mask) >= 1)
         {
-            Array.Sort(hits, delegate(RaycastHit hit1, RaycastHit hit2)
-            {
-                if (hit1.transform == null)
-                {
-                    return 1;
-                }
-                if (hit2.transform == null)
-                {
-                    return -1;
-                }
-                return hit1.distance.CompareTo(hit2.distance);
-            });
-
-            RaycastHit hit;
-
-            PhotonView hitPhotonView = hits[0].transform.GetComponent<PhotonView>();
-            if (hits[0].collider.CompareTag("Player") && hitPhotonView != null && hitPhotonView.IsMine)
-            {
-                hit = hits[1];
-                Debug.Log("Player hit himself. Taking second RaycastHit");
-            }
-            else
-            {
-                hit = hits[0];
-            }
+            RaycastHit hit = GetClosestRaycastHit(hits);
 
             PhotonView target = hit.transform.GetComponent<PhotonView>();
             if (target != null && !target.IsMine)
@@ -118,6 +100,39 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
                 StartCoroutine(InstantiateMetalEffect(hit));
             }
         }
+    }
+
+    public RaycastHit GetClosestRaycastHit(RaycastHit[] hits)
+    {
+        Array.Sort(hits, delegate(RaycastHit hit1, RaycastHit hit2)
+        {
+            if (hit1.transform == null)
+            {
+                return 1;
+            }
+
+            if (hit2.transform == null)
+            {
+                return -1;
+            }
+
+            return hit1.distance.CompareTo(hit2.distance);
+        });
+
+        RaycastHit hit;
+
+        PhotonView hitPhotonView = hits[0].transform.GetComponent<PhotonView>();
+        if (hits[0].collider.CompareTag("Player") && hitPhotonView != null && hitPhotonView.IsMine)
+        {
+            hit = hits[1];
+            Debug.Log("Player hit himself. Taking second RaycastHit");
+        }
+        else
+        {
+            hit = hits[0];
+        }
+
+        return hit;
     }
 
     private IEnumerator InstantiateBloodEffect(RaycastHit hit)
