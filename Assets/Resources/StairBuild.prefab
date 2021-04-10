@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 121911710511755829}
   - component: {fileID: 1657160072178468142}
   - component: {fileID: 3990380083099394952}
+  - component: {fileID: 916149589027799124}
   m_Layer: 6
   m_Name: StairObject
   m_TagString: StairBuild
@@ -119,6 +120,20 @@ MonoBehaviour:
   sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &916149589027799124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6511593382756473266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f29ff04094415154da075dd27ce2878a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  damage: 10
 --- !u!1 &6768953985625819438
 GameObject:
   m_ObjectHideFlags: 0

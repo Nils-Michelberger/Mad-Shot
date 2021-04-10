@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 7477328102855782350}
   - component: {fileID: 2168427023576252962}
   - component: {fileID: 6659127599835807961}
+  - component: {fileID: 1784659533222287090}
   m_Layer: 6
   m_Name: FloorObject
   m_TagString: FloorBuild
@@ -150,3 +151,17 @@ MonoBehaviour:
   sceneViewId: 4
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1784659533222287090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8860508504419645033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f29ff04094415154da075dd27ce2878a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  damage: 10

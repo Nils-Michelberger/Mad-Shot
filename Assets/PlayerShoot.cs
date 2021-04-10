@@ -88,7 +88,14 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
             PhotonView target = hit.transform.GetComponent<PhotonView>();
             if (target != null && !target.IsMine)
             {
-                target.RPC("TakeDamage", RpcTarget.All);
+                if (hit.collider.CompareTag("Player"))
+                {
+                    target.RPC("TakeDamage", RpcTarget.All);
+                }
+            }
+            if (target != null && (hit.collider.CompareTag("FloorBuild") || hit.collider.CompareTag("WallBuild") || hit.collider.CompareTag("StairBuild")))
+            {
+                target.RPC("TakeBuildingDamage", RpcTarget.MasterClient);
             }
 
             if (hit.collider.CompareTag("Player"))
