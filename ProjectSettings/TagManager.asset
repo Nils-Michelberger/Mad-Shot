@@ -22,9 +22,9 @@ TagManager:
   - PlayerModel
   - Weapon
   - PlayerController
-  - 
-  - 
-  - 
+  - FloorBuild
+  - WallBuild
+  - StairBuild
   - 
   - 
   - 

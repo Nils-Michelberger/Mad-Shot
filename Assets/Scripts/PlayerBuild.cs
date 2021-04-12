@@ -11,6 +11,11 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
     public Transform floorBuild;
     public Transform wallBuild;
     public Transform stairBuild;
+    public Transform groundCheck;
+    public Transform buildingRef;
+    public Transform secondRaycast;
+    public LayerMask floorStairsMask;
+    public LayerMask wallMask;
 
     public int buildMode; // 0=off | 1=floor | 2=wall | 3=stair
 
@@ -104,6 +109,37 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
             floorBuild.position = new Vector3(Mathf.RoundToInt(hit.point.x / snappingGridSize) * snappingGridSize,
                 Mathf.RoundToInt(hit.point.y / snappingGridSize) * snappingGridSize + floorBuild.localScale.y / 2,
                 Mathf.RoundToInt(hit.point.z / snappingGridSize) * snappingGridSize);
+
+            floorBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f, 0);
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                //TODO: Add if-statement to check if we can build
+                photonView.RPC("InstantiateFloor", RpcTarget.MasterClient, floorBuild.position, floorBuild.rotation);
+            }
+        }
+        //Player has wall in front
+        else if (Physics.Raycast(secondRaycast.transform.position, secondRaycast.transform.forward, 3f, wallMask))
+        {
+            floorBuild.position = new Vector3(Mathf.RoundToInt(groundCheck.transform.position.x / snappingGridSize) * snappingGridSize,
+                Mathf.RoundToInt(groundCheck.transform.position.y + 1.6f / snappingGridSize) * snappingGridSize + floorBuild.localScale.y / 2,
+                Mathf.RoundToInt(groundCheck.transform.position.z / snappingGridSize) * snappingGridSize);
+
+            floorBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f, 0);
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                //TODO: Add if-statement to check if we can build
+                photonView.RPC("InstantiateFloor", RpcTarget.MasterClient, floorBuild.position, floorBuild.rotation);
+            }
+        }
+        //Player is standing on floor or stair
+        else if (Physics.CheckSphere(groundCheck.position, 1f, floorStairsMask))
+        {
+            //Draw snapping buildObject preview (with use of multiplier by snappingGridSize)
+            floorBuild.position = new Vector3(Mathf.RoundToInt(buildingRef.transform.position.x / snappingGridSize) * snappingGridSize,
+                Mathf.RoundToInt(buildingRef.transform.position.y / snappingGridSize) * snappingGridSize + floorBuild.localScale.y / 2,
+                Mathf.RoundToInt(buildingRef.transform.position.z / snappingGridSize) * snappingGridSize);
 
             floorBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f, 0);
 

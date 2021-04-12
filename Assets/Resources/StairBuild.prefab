@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1657160072178468142}
   - component: {fileID: 3990380083099394952}
   - component: {fileID: 916149589027799124}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: StairObject
   m_TagString: StairBuild
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8995410804422435521}
   - component: {fileID: 2865540559555514001}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: StairBuild
   m_TagString: StairBuild
   m_Icon: {fileID: 0}

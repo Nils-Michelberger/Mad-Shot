@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5749816561819444676}
   - component: {fileID: 3264286179304090934}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: FloorBuild
   m_TagString: FloorBuild
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 2168427023576252962}
   - component: {fileID: 6659127599835807961}
   - component: {fileID: 1784659533222287090}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: FloorObject
   m_TagString: FloorBuild
   m_Icon: {fileID: 0}
