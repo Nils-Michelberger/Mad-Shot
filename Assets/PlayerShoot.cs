@@ -24,6 +24,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
     private bool isFiring;
     private PlayerBuild playerBuild;
     private float nextTimeToBomb;
+    private bool throwBomb;
 
     public float health = 50f;
 
@@ -45,24 +46,32 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
     void Update()
     {
         if (!photonView.IsMine) return;
-        
-        if (!(playerBuild.buildMode > 0) && Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+
+        if (!(playerBuild.buildMode > 0))
         {
-            photonView.RPC("Shoot", RpcTarget.All);
+            if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+            {
+                photonView.RPC("Shoot", RpcTarget.All);
+            }
+
+            if (Input.GetKeyDown(KeyCode.F) && Time.time >= nextTimeToBomb)
+            {
+                nextTimeToBomb = Time.time + 1f / bombRate;
+                throwBomb = true;
+            }
         }
     }
 
     private void FixedUpdate()
     {
         if (!photonView.IsMine) return;
-        
-        if (!(playerBuild.buildMode > 0) && Input.GetKeyDown(KeyCode.F) && Time.time >= nextTimeToBomb)
+
+        if (throwBomb)
         {
-            nextTimeToBomb = Time.time + 1f / bombRate;
-            
             GameObject bomb = PhotonNetwork.Instantiate("Bomb", hand.position, Quaternion.identity);
-            
             bomb.GetComponent<Rigidbody>().AddForce(cam.transform.forward * throwForce, ForceMode.Impulse);
+
+            throwBomb = false;
         }
     }
 
