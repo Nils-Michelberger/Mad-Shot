@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 8478660471960973113}
   - component: {fileID: 6839378359820203694}
   - component: {fileID: 951158650367340590}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
   delay: 5
   explosionRadius: 10
   damage: 150
-  bombEffectExpireTime: 2
+  bombEffectExpireTime: 1.9
   interactionMask:
     serializedVersion: 2
     m_Bits: 576
