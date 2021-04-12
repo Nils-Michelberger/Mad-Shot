@@ -14,6 +14,7 @@ public class Bomb : MonoBehaviourPunCallbacks
 
     public AudioSource explosion;
     public AudioSource ticking;
+    public GameObject effect;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +45,9 @@ public class Bomb : MonoBehaviourPunCallbacks
         ticking.Stop();
         explosion.Play();
         PhotonNetwork.InstantiateRoomObject("PlasmaExplosionEffect", transform.position, Quaternion.identity);
-
+        
+        effect.SetActive(false);
+        
         GetComponent<Renderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
 
