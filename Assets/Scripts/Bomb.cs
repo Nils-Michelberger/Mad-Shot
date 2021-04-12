@@ -12,10 +12,14 @@ public class Bomb : MonoBehaviourPunCallbacks
     
     public LayerMask interactionMask;
 
+    public AudioSource explosion;
+    public AudioSource ticking;
+
     // Start is called before the first frame update
     void Start()
     {
         Invoke(nameof(Explode), delay);
+        ticking.Play();
     }
 
     void Explode()
@@ -37,7 +41,8 @@ public class Bomb : MonoBehaviourPunCallbacks
                 }
             }
         }
-        GetComponent<AudioSource>().Play();
+        ticking.Stop();
+        explosion.Play();
         PhotonNetwork.InstantiateRoomObject("PlasmaExplosionEffect", transform.position, Quaternion.identity);
 
         GetComponent<Renderer>().enabled = false;
