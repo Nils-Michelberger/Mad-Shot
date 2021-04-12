@@ -1705,6 +1705,36 @@ Transform:
   m_Father: {fileID: 3023872229870498489}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5802188306657865772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3904402360847237475}
+  m_Layer: 9
+  m_Name: Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3904402360847237475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5802188306657865772}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.36, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8343647363486297599}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6076057716115236215
 GameObject:
   m_ObjectHideFlags: 0
@@ -12122,6 +12152,7 @@ Transform:
   - {fileID: 8343647365148035302}
   - {fileID: 2800160789179358389}
   - {fileID: 8152103811676921820}
+  - {fileID: 3904402360847237475}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12190,9 +12221,12 @@ MonoBehaviour:
   muzzleFlashFPS: {fileID: 8175714357157554629}
   fireSound: {fileID: 8343647363486297474}
   fireAnimationFPS: {fileID: 8343647364035782398}
+  hand: {fileID: 3904402360847237475}
   fireRate: 8
   range: 200
   damage: 10
+  throwForce: 40
+  bombRate: 0.05
   health: 50
 --- !u!82 &8343647363486297474
 AudioSource:
@@ -12328,7 +12362,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 8343647363486297596}
   - {fileID: 8343647363486297472}
   - {fileID: 8343647363486297475}
   - {fileID: 5223569031027713942}

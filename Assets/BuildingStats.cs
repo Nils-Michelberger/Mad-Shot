@@ -6,7 +6,6 @@ using UnityEngine;
 public class BuildingStats : MonoBehaviourPunCallbacks
 {
     public float health = 100f;
-    public float damage = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +18,7 @@ public class BuildingStats : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void TakeBuildingDamage()
+    public void TakeBuildingDamage(float damage)
     {
         health -= damage;
 

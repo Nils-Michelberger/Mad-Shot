@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
+public class PlayerShoot : MonoBehaviourPunCallbacks
 {
     private Camera cam;
     public LayerMask mask;
@@ -12,14 +12,18 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
     public ParticleSystem muzzleFlashFPS;
     public AudioSource fireSound;
     public Animation fireAnimationFPS;
+    public Transform hand;
 
     public float fireRate = 15f;
     public float range = 200f;
     public float damage = 10f;
+    public float throwForce = 40f;
+    public float bombRate = 0.05f;
 
     private float nextTimeToFire;
     private bool isFiring;
     private PlayerBuild playerBuild;
+    private float nextTimeToBomb;
 
     public float health = 50f;
 
@@ -40,17 +44,25 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine)
-        {
-            if (!(playerBuild.buildMode > 0))
-            {
-                isFiring = Input.GetButton("Fire1") && Time.time >= nextTimeToFire;
-            }
-        }
-
-        if (isFiring)
+        if (!photonView.IsMine) return;
+        
+        if (!(playerBuild.buildMode > 0) && Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
         {
             photonView.RPC("Shoot", RpcTarget.All);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (!photonView.IsMine) return;
+        
+        if (!(playerBuild.buildMode > 0) && Input.GetKeyDown(KeyCode.F) && Time.time >= nextTimeToBomb)
+        {
+            nextTimeToBomb = Time.time + 1f / bombRate;
+            
+            GameObject bomb = PhotonNetwork.Instantiate("Bomb", hand.position, Quaternion.identity);
+            
+            bomb.GetComponent<Rigidbody>().AddForce(cam.transform.forward * throwForce, ForceMode.Impulse);
         }
     }
 
@@ -90,12 +102,12 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (hit.collider.CompareTag("Player"))
                 {
-                    target.RPC("TakeDamage", RpcTarget.All);
+                    target.RPC("TakeDamage", RpcTarget.All, damage);
                 }
             }
             if (target != null && (hit.collider.CompareTag("FloorBuild") || hit.collider.CompareTag("WallBuild") || hit.collider.CompareTag("StairBuild")))
             {
-                target.RPC("TakeBuildingDamage", RpcTarget.MasterClient);
+                target.RPC("TakeBuildingDamage", RpcTarget.MasterClient, damage);
             }
 
             if (hit.collider.CompareTag("Player"))
@@ -159,7 +171,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    void TakeDamage()
+    void TakeDamage(float damage)
     {
         health -= damage;
 
@@ -171,10 +183,5 @@ public class PlayerShoot : MonoBehaviourPunCallbacks, IPunObservable
                 GameManager.instance.LeaveRoom();
             }
         }
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        //Handled by RPCs
     }
 }
