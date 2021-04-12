@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class Bomb : MonoBehaviourPunCallbacks
 {
     public float delay = 5f;
     public float explosionRadius = 10f;
@@ -24,7 +24,7 @@ public class Bomb : MonoBehaviour
         foreach (var c in colliders)
         {
             PhotonView target = c.GetComponent<PhotonView>();
-            if (target != null)
+            if (target != null && photonView.IsMine)
             {
                 float calculatedDamage = damage - Vector3.Distance(transform.position, c.transform.position) * damage/explosionRadius;
                 if (c.CompareTag("Player"))
@@ -38,18 +38,17 @@ public class Bomb : MonoBehaviour
             }
         }
         GetComponent<AudioSource>().Play();
-        GameObject particleInstance = PhotonNetwork.Instantiate("PlasmaExplosionEffect", transform.position, Quaternion.identity);
+        PhotonNetwork.InstantiateRoomObject("PlasmaExplosionEffect", transform.position, Quaternion.identity);
 
         GetComponent<Renderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
 
-        StartCoroutine(InstantiateBombEffect(particleInstance));
+        StartCoroutine(InstantiateBombEffect());
     }
 
-    private IEnumerator InstantiateBombEffect(GameObject particleInstance)
+    private IEnumerator InstantiateBombEffect()
     {
         yield return new WaitForSeconds(bombEffectExpireTime);
-        PhotonNetwork.Destroy(particleInstance);
         PhotonNetwork.Destroy(gameObject);
     }
 }

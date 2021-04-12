@@ -9780,6 +9780,7 @@ GameObject:
   - component: {fileID: 198000010585806678}
   - component: {fileID: 199000012270651464}
   - component: {fileID: 8401140971855581105}
+  - component: {fileID: 9055412309901454849}
   m_Layer: 0
   m_Name: PlasmaExplosionEffect
   m_TagString: Untagged
@@ -14536,6 +14537,18 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &9055412309901454849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011128802252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9807f2b165315d44b61757c6554589c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000011730688910
 GameObject:
   m_ObjectHideFlags: 0

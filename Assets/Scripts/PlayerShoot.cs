@@ -56,22 +56,9 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
 
             if (Input.GetKeyDown(KeyCode.F) && Time.time >= nextTimeToBomb)
             {
+                photonView.RPC("ThrowBomb", RpcTarget.MasterClient, cam.transform.forward);
                 nextTimeToBomb = Time.time + 1f / bombRate;
-                throwBomb = true;
             }
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (!photonView.IsMine) return;
-
-        if (throwBomb)
-        {
-            GameObject bomb = PhotonNetwork.Instantiate("Bomb", hand.position, Quaternion.identity);
-            bomb.GetComponent<Rigidbody>().AddForce(cam.transform.forward * throwForce, ForceMode.Impulse);
-
-            throwBomb = false;
         }
     }
 
@@ -98,10 +85,15 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
         muzzleFlashFPS.Play();
         fireSound.Play();
         fireAnimationFPS.Play();
+        
+        if (!photonView.IsMine)
+        {
+            return;
+        }
 
         //Increase size if there are problems with hitting players
         RaycastHit[] hits = new RaycastHit[10];
-
+        
         if (Physics.RaycastNonAlloc(cam.transform.position, cam.transform.forward, hits, range, mask) >= 1)
         {
             RaycastHit hit = GetClosestRaycastHit(hits);
@@ -192,5 +184,12 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
                 GameManager.instance.LeaveRoom();
             }
         }
+    }
+
+    [PunRPC]
+    void ThrowBomb(Vector3 position)
+    {
+        GameObject bomb = PhotonNetwork.InstantiateRoomObject("Bomb", hand.position, Quaternion.identity);
+        bomb.GetComponent<Rigidbody>().AddForce(position * throwForce, ForceMode.Impulse);
     }
 }
