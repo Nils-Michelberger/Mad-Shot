@@ -12612,20 +12612,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c07d8eef57aaf49a237418aa058fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 6
+  range: 7
   snappingGridSize: 3
+  standingCheckRange: 0.4
   floorBuild: {fileID: 2333928061948178699}
   wallBuild: {fileID: 7788033853764791506}
   stairBuild: {fileID: 3479533290264968185}
   groundCheck: {fileID: 8343647364603689369}
   buildingRef: {fileID: 8884176276635932497}
   secondRaycast: {fileID: 897351579327854352}
-  floorStairsMask:
+  floorMask:
     serializedVersion: 2
-    m_Bits: 5120
+    m_Bits: 1024
   wallMask:
     serializedVersion: 2
     m_Bits: 2048
+  stairMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  notStairMask:
+    serializedVersion: 2
+    m_Bits: 4087
   buildMode: 0
 --- !u!1 &8343647364089282802
 GameObject:
