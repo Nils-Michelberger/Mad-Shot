@@ -121,7 +121,7 @@ MonoBehaviour:
   bombEffectExpireTime: 1.9
   interactionMask:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 7744
   explosion: {fileID: 8478660471960973113}
   ticking: {fileID: 633334064500242039}
   effect: {fileID: 3817372936490876689}
