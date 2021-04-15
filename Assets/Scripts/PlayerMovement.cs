@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         animator.SetBool("Grounded", isGrounded);
 
         //Crouching toggle
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             //float step = speed * Time.deltaTime;
             if (animator.GetBool("Crouching"))

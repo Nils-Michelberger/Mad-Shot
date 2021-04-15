@@ -58,15 +58,15 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.X))
         {
             buildMode = 1;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Mouse3) || Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Y))
         {
             buildMode = 2;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Mouse4) || Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.C))
         {
             buildMode = 3;
         }
