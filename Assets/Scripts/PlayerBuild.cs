@@ -195,6 +195,13 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
     private void BuildWall(RaycastHit[] hits)
     {
+        Collider[] colliders = Physics.OverlapSphere(groundCheck.position, standingCheckRange, stairMask);
+        Collider stairOnGround = null;
+        if (colliders.Length > 0)
+        {
+            stairOnGround = colliders[0];
+        }
+        
         floorBuildMeshRenderer.enabled = false;
         stairBuildMeshRenderer.enabled = false;
 
@@ -218,7 +225,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
             }
         }
         //Player is standing on stair
-        else if (Physics.CheckSphere(groundCheck.position, standingCheckRange, stairMask))
+        else if (stairOnGround && !(stairOnGround.transform.eulerAngles.y == Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360))
         {
             wallBuildMeshRenderer.enabled = true;
 
@@ -238,7 +245,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
             }
         }
         //Player is standing on floor
-        else if (Physics.CheckSphere(groundCheck.position, 0.1f, floorMask))
+        else if (Physics.CheckSphere(new Vector3(groundCheck.position.x, groundCheck.position.y, groundCheck.position.z + 0.1f), 0.1f, floorMask))
         {
             wallBuildMeshRenderer.enabled = true;
 
@@ -288,7 +295,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             //Draw snapping buildObject preview (with use of multiplier by snappingGridSize)
             stairBuild.position = new Vector3(Mathf.RoundToInt(hit.point.x / snappingGridSize) * snappingGridSize,
-                Mathf.Floor((hit.point.y / snappingGridSize) - 0.167f) * snappingGridSize + stairBuild.localScale.y / 2,
+                Mathf.Floor(hit.point.y / snappingGridSize - 0.167f) * snappingGridSize + stairBuild.localScale.y / 2,
                 Mathf.RoundToInt(hit.point.z / snappingGridSize) * snappingGridSize);
 
             stairBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
