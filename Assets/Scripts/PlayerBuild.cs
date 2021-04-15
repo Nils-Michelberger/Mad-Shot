@@ -15,6 +15,8 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
     public Transform stairBuild;
     public Transform groundCheck;
     public Transform buildingRef;
+    public Transform buildingRefShort;
+    public Transform buildingRefShortest;
     public Transform secondRaycast;
     public LayerMask floorMask;
     public LayerMask wallMask;
@@ -254,10 +256,10 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             //Draw snapping buildObject preview (with use of multiplier by snappingGridSize)
             wallBuild.position = new Vector3(
-                Mathf.RoundToInt(groundCheck.transform.position.x / snappingGridSize) * snappingGridSize,
-                Mathf.RoundToInt(groundCheck.transform.position.y / snappingGridSize) * snappingGridSize +
+                Mathf.RoundToInt(buildingRefShortest.transform.position.x / snappingGridSize) * snappingGridSize,
+                Mathf.RoundToInt(buildingRefShortest.transform.position.y / snappingGridSize) * snappingGridSize +
                 wallBuild.localScale.y / 2,
-                Mathf.RoundToInt(groundCheck.transform.position.z / snappingGridSize) * snappingGridSize);
+                Mathf.RoundToInt(buildingRefShortest.transform.position.z / snappingGridSize) * snappingGridSize);
 
             wallBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
@@ -353,10 +355,10 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             //Draw snapping buildObject preview (with use of multiplier by snappingGridSize)
             stairBuild.position = new Vector3(
-                Mathf.RoundToInt(buildingRef.transform.position.x / snappingGridSize) * snappingGridSize,
-                Mathf.RoundToInt(buildingRef.transform.position.y / snappingGridSize) * snappingGridSize +
+                Mathf.RoundToInt(buildingRefShort.transform.position.x / snappingGridSize) * snappingGridSize,
+                Mathf.RoundToInt(buildingRefShort.transform.position.y / snappingGridSize) * snappingGridSize +
                 stairBuild.localScale.y / 2,
-                Mathf.RoundToInt(buildingRef.transform.position.z / snappingGridSize) * snappingGridSize);
+                Mathf.RoundToInt(buildingRefShort.transform.position.z / snappingGridSize) * snappingGridSize);
 
             stairBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 

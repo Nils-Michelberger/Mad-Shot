@@ -2231,6 +2231,36 @@ Transform:
   m_Father: {fileID: 8152103811676921820}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7301453839837615045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 829871886114807842}
+  m_Layer: 9
+  m_Name: BuildRefShort
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &829871886114807842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7301453839837615045}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.9, z: 2.418}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8343647364778076287}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7326537734937759478
 GameObject:
   m_ObjectHideFlags: 0
@@ -12620,6 +12650,8 @@ MonoBehaviour:
   stairBuild: {fileID: 3479533290264968185}
   groundCheck: {fileID: 8343647364603689369}
   buildingRef: {fileID: 8884176276635932497}
+  buildingRefShort: {fileID: 829871886114807842}
+  buildingRefShortest: {fileID: 3978629315949541752}
   secondRaycast: {fileID: 897351579327854352}
   floorMask:
     serializedVersion: 2
@@ -12934,6 +12966,8 @@ Transform:
   - {fileID: 3904402360847237475}
   - {fileID: 8884176276635932497}
   - {fileID: 897351579327854352}
+  - {fileID: 829871886114807842}
+  - {fileID: 3978629315949541752}
   m_Father: {fileID: 8343647363486297599}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13247,6 +13281,36 @@ Transform:
   - {fileID: 8343647364583581942}
   m_Father: {fileID: 8343647363486297599}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8726862132876545970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3978629315949541752}
+  m_Layer: 9
+  m_Name: BuildRefShortest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3978629315949541752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8726862132876545970}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8343647364778076287}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8900320778996378136
 GameObject:
