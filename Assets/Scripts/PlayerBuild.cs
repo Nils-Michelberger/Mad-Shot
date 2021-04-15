@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -123,7 +124,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             floorBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(floorBuild.position, 0.1f, floorMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateFloor", RpcTarget.MasterClient, floorBuild.position, floorBuild.rotation);
@@ -160,7 +161,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             floorBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(floorBuild.position, 0.1f, floorMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateFloor", RpcTarget.MasterClient, floorBuild.position, floorBuild.rotation);
@@ -180,7 +181,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             floorBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(floorBuild.position, 0.1f, floorMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateFloor", RpcTarget.MasterClient, floorBuild.position, floorBuild.rotation);
@@ -218,7 +219,8 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             wallBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(wallBuild.position + wallBuild.forward.normalized * 1.5f 
+                + wallBuild.up.normalized * 1.5f, 0.1f, wallMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateWall", RpcTarget.MasterClient, wallBuild.position, wallBuild.rotation);
@@ -238,7 +240,8 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             wallBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(wallBuild.position + wallBuild.forward.normalized * 1.5f
+                + wallBuild.up.normalized * 1.5f, 0.1f, wallMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateWall", RpcTarget.MasterClient, wallBuild.position, wallBuild.rotation);
@@ -258,7 +261,8 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             wallBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(wallBuild.position + wallBuild.forward.normalized * 1.5f
+                + wallBuild.up.normalized * 1.5f, 0.1f, wallMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateWall", RpcTarget.MasterClient, wallBuild.position, wallBuild.rotation);
@@ -300,7 +304,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             stairBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(stairBuild.position + stairBuild.up.normalized * 1.5f, 0.1f, stairMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateStair", RpcTarget.MasterClient, stairBuild.position, stairBuild.rotation);
@@ -316,7 +320,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             stairBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(stairBuild.position + stairBuild.up.normalized * 1.5f, 0.1f, stairMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateStair", RpcTarget.MasterClient, stairBuild.position, stairBuild.rotation);
@@ -336,7 +340,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             stairBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(stairBuild.position + stairBuild.up.normalized * 1.5f, 0.1f, stairMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateStair", RpcTarget.MasterClient, stairBuild.position, stairBuild.rotation);
@@ -356,7 +360,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             stairBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(stairBuild.position + stairBuild.up.normalized * 1.5f, 0.1f, stairMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateStair", RpcTarget.MasterClient, stairBuild.position, stairBuild.rotation);
@@ -375,7 +379,7 @@ public class PlayerBuild : MonoBehaviourPunCallbacks
 
             stairBuild.eulerAngles = new Vector3(0, Mathf.RoundToInt(cam.transform.eulerAngles.y / 90f) * 90f % 360, 0);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !Physics.CheckSphere(stairBuild.position + stairBuild.up.normalized * 1.5f, 0.1f, stairMask))
             {
                 //TODO: Add if-statement to check if we can build
                 photonView.RPC("InstantiateStair", RpcTarget.MasterClient, stairBuild.position, stairBuild.rotation);
