@@ -6,6 +6,7 @@ using UnityEngine;
 public class BuildingStats : MonoBehaviourPunCallbacks
 {
     public float health = 100f;
+    public AudioSource destructionSound;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,22 @@ public class BuildingStats : MonoBehaviourPunCallbacks
 
         if (health <= 0f)
         {
-            PhotonNetwork.Destroy(gameObject);
+            photonView.RPC("PlayDestructionSound", RpcTarget.All);
+            
+            Invoke(nameof(DestroyObject), 3f);
         }
+    }
+
+    [PunRPC]
+    private void PlayDestructionSound()
+    {
+        GetComponent<Renderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+        destructionSound.Play();
+    }
+
+    private void DestroyObject()
+    {
+        PhotonNetwork.Destroy(gameObject);
     }
 }
