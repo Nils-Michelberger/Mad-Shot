@@ -12317,6 +12317,10 @@ MonoBehaviour:
   throwForce: 12.5
   bombRate: 1
   health: 50
+  groundCheck: {fileID: 8343647364603689369}
+  lavaMask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!82 &8343647363486297474
 AudioSource:
   m_ObjectHideFlags: 0

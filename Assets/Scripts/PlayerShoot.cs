@@ -31,6 +31,9 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
 
+    public Transform groundCheck;
+    public LayerMask lavaMask;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +62,11 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
                 photonView.RPC("ThrowBomb", RpcTarget.MasterClient, cam.transform.forward);
                 nextTimeToBomb = Time.time + 1f / bombRate;
             }
+        }
+
+        if (Physics.CheckSphere(groundCheck.position, 1f, lavaMask))
+        {
+            photonView.RPC("TakeDamage", RpcTarget.All, 999f);
         }
     }
 
