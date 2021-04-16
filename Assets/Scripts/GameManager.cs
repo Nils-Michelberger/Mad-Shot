@@ -18,13 +18,25 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        Vector3[] spawnpoints =
+        {
+            new Vector3(64, 20, 47),
+            new Vector3(64, 20, -47),
+            new Vector3(0, 20, -65),
+            new Vector3(0, 20, 65),
+            new Vector3(-64, 20, 47),
+            new Vector3(-64, 20, -47)
+        };
+        System.Random random = new System.Random();
+        
         instance = this;
 
         if (PlayerShoot.LocalPlayerInstance == null)
         {
             Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
             // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(32f, 5f, -23f), Quaternion.identity, 0);
+
+            PhotonNetwork.Instantiate(playerPrefab.name, spawnpoints[random.Next(0, spawnpoints.Length)], Quaternion.identity);
         }
         else
         {
