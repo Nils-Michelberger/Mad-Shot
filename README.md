@@ -13,7 +13,7 @@
 
 ### Video demo:
 
-[![Mad Shot Video YouTube](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+[![Mad Shot Video YouTube](https://img.youtube.com/vi/cc1y3bmAii8/0.jpg)](https://www.youtube.com/watch?v=cc1y3bmAii8)
 
 ### Controls:
 - Walk -> WASD
