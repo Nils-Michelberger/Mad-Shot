@@ -1,5 +1,5 @@
 # Mad Shot
-### A FPS game with fortnite-like build system
+### A multiplayer FPS game with fortnite-like build system
 
 ### This game includes:
 - Animated Movement with 3rd player perspective (walking, running, crouching, jumping, aiming)
