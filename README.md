@@ -26,13 +26,15 @@
 - Skybox: https://assetstore.unity.com/packages/vfx/shaders/free-skybox-extended-shader-107400
 - Sounds: https://assetstore.unity.com/packages/audio/sound-fx/free-casual-game-sfx-pack-54116, https://assetstore.unity.com/packages/audio/sound-fx/free-sound-effects-pack-155776, https://assetstore.unity.com/packages/audio/sound-fx/sci-fi-guns-sfx-pack-181144 (gun sounds), https://assetstore.unity.com/packages/p/soundbits-free-sound-fx-collection-31837
 - Networking (PUN2): https://assetstore.unity.com/packages/tools/network/pun-2-free-119922
-- Prefabs: https://assetstore.unity.com/packages/3d/props/guns/sci-fi-gun-light-87916 (Gun)
+- Models: https://assetstore.unity.com/packages/3d/props/guns/sci-fi-gun-light-87916 (gun), https://www.mixamo.com/#/?page=1&type=Character (player)
 - Particle effects: https://assetstore.unity.com/packages/essentials/tutorial-projects/unity-particle-pack-127325
 
 ### Video demo:
 
 [![Mad Shot Video YouTube](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
-Download built game: https://drive.google.com/file/d/1wgcdlZcvb6GXXdIM6ZJ-c33EqVkUJlos/view?usp=sharing
+### Download:
+
+https://drive.google.com/file/d/1wgcdlZcvb6GXXdIM6ZJ-c33EqVkUJlos/view?usp=sharing
 
 Enjoy :)
