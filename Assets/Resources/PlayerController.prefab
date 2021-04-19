@@ -12321,6 +12321,7 @@ MonoBehaviour:
   lavaMask:
     serializedVersion: 2
     m_Bits: 8192
+  PlayerUiPrefab: {fileID: 1121628253207007321, guid: cad2d3bf7cbdb0c48a172f135e3229c1, type: 3}
 --- !u!82 &8343647363486297474
 AudioSource:
   m_ObjectHideFlags: 0

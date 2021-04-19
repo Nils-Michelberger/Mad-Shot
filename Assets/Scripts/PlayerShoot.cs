@@ -33,10 +33,20 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
 
     public Transform groundCheck;
     public LayerMask lavaMask;
+    
+    [Tooltip("The Player's UI GameObject Prefab")]
+    [SerializeField]
+    public GameObject PlayerUiPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (!photonView.IsMine && PlayerUiPrefab != null)
+        {
+            GameObject _uiGo =  Instantiate(PlayerUiPrefab);
+            _uiGo.SendMessage ("SetTarget", this, SendMessageOptions.RequireReceiver);
+        }
+
         if (photonView.IsMine)
         {
             cam = Camera.main;
@@ -111,7 +121,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
             {
                 if (hit.collider.CompareTag("Player"))
                 {
-                    target.RPC("TakeDamage", RpcTarget.All, damage);
+                    target.RPC("TakeDamage", RpcTarget.AllBuffered, damage);
                 }
             }
             if (target != null && (hit.collider.CompareTag("FloorBuild") || hit.collider.CompareTag("WallBuild") || hit.collider.CompareTag("StairBuild")))
