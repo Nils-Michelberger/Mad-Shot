@@ -57,10 +57,7 @@ public class PlayerUI : MonoBehaviour
             {
                 playerHealthSlider.value = target.health;
             }
-            
-            Debug.Log(playerHealthSlider.value);
-            Debug.Log(target.health);
-            
+
             // Destroy itself if the target is null, It's a fail safe when Photon is destroying Instances of a Player over the network
             if (target == null)
             {

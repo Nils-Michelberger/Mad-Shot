@@ -12,6 +12,7 @@ TagManager:
   - WallBuild
   - StairBuild
   - Lava
+  - TopPanelUI
   layers:
   - Default
   - TransparentFX

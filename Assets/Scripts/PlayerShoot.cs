@@ -38,6 +38,8 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
     [SerializeField]
     public GameObject PlayerUiPrefab;
 
+    private TopPanelUI topPanelUIScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +52,15 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             cam = Camera.main;
+            GameObject topPanelUI = GameObject.FindWithTag("TopPanelUI");
+            if (topPanelUI != null)
+            {
+                topPanelUIScript = topPanelUI.GetComponent<TopPanelUI>();
+                if (topPanelUIScript != null)
+                {
+                    topPanelUIScript.PlayerName = photonView.Owner.NickName;
+                }
+            }
         }
 
         playerBuild = GetComponent<PlayerBuild>();
@@ -77,6 +88,11 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
         if (Physics.CheckSphere(groundCheck.position, 1f, lavaMask))
         {
             photonView.RPC("TakeDamage", RpcTarget.All, 999f);
+        }
+        
+        if (topPanelUIScript != null)
+        {
+            topPanelUIScript.HealthBarValue = health;
         }
     }
 
